@@ -16,7 +16,7 @@ int main(int argc, string argv[])
     //Sets command line argument to variable keyword
     string keyword = argv[1];
 
-    //reiects keyword if non-alphabetic characters are foun
+    //reiects keyword if non-alphabetic characters are found
     for (int i = 0; i < strlen(keyword); i++)
     {
         if (!isalpha(keyword[i]))

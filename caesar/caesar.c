@@ -5,26 +5,27 @@
 
 int main(int argc, string argv[])
 {
-
-    //Converts command line arguments to int key, number of rotations
-    int key = atoi(argv[1]) % 26;
-
     //Error messege if no command line arguments are given or more than 1 is found
-    if(argc < 2 || argc > 2 || key < 0)
+    if (argc != 2)
     {
-        printf("Error: caesar requires one positive integer as a command line argument\n");
+        printf("Error: ./caesar requires 1 positive integer as a command line argument\n");
         return 1;
     }
-    //Prompts user for a string to be encrypted
+
+    //Converts command line argument to int, key represents the number of character shifts
+    int key = atoi(argv[1]) % 26;
+
+    //Prompts user for the string to be encrypted
     string plain = get_string("plaintext: ");
-    //Iterates through string and converts valid characters
-    for(int index = 0; index < strlen(plain); index++)
+
+    //Iterates through the provided string converting only alphabet characters
+    for (int index = 0; index < strlen(plain); index++)
     {
-        //lowercase rotation
-        if(plain[index] >= 'a' && plain[index] <= 'z')
+        //Lowercase rotation
+        if (plain[index] >= 'a' && plain[index] <= 'z')
         {
-            //catches overflow
-            if(plain[index] + key > 'z')
+            //Catches overflow
+            if (plain[index] + key > 'z')
             {
                 plain[index] = 96 + ((plain[index] + key) % 'z');
             }
@@ -33,11 +34,11 @@ int main(int argc, string argv[])
                 plain[index] += key;
             }
         }
-        //lowercase rotation
-        if(plain[index] >= 'A' && plain[index] <= 'Z')
+        //Uppercase rotation
+        if (plain[index] >= 'A' && plain[index] <= 'Z')
         {
-            //catches overflow
-            if(plain[index] + key > 'Z')
+            //Catches overflow
+            if (plain[index] + key > 'Z')
             {
                 plain[index] = 64 + ((plain[index] + key) % 'Z');
             }
@@ -49,7 +50,3 @@ int main(int argc, string argv[])
     }
     printf("ciphertext: %s\n", plain);
 }
-
-// $ ./caesar 13
-// plainindex:  hello, world
-// cipherindex: uryyb, jbeyq

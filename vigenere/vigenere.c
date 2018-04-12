@@ -16,7 +16,7 @@ int main(int argc, string argv[])
     //Sets command line argument to variable keyword
     string keyword = argv[1];
 
-    //rejects keyword if non-alphabetic characters are foun
+    //reiects keyword if non-alphabetic characters are foun
     for (int i = 0; i < strlen(keyword); i++)
     {
         if (!isalpha(keyword[i]))
@@ -26,48 +26,59 @@ int main(int argc, string argv[])
         }
     }
 
-    int j = 0;
-
     //Prompts user for the string to be enciphered
     string plain = get_string("plaintext: ");
+
+    //Variable j to hold keyword position
+    int j = 0;
 
     //Iterates through the provided string converting only alphabet characters
     for (int i = 0; i < strlen(plain); i++)
     {
+        //Encipher only alphabetic characters
         if (isalpha(plain[i]))
         {
+            //mod variable for keyword index cycling
             int mod = j % strlen(keyword);
 
+            //Lowercase rotation
             if (islower(plain[i]))
             {
-                tolower(keyword[mod]);
+                //Adjust keyword index to match letter casing
+                keyword[mod] = tolower(keyword[mod]);
 
-                if(plain[i] + ((keyword[mod]) - 97) > 122)
+                //Cycles rotation in case of overflow
+                if (plain[i] + ((keyword[mod]) - 'a') > 'z')
                 {
-                    plain[i] = 96 + ((plain[i] + (keyword[mod] - 97)) % 122);
-                    j++;
+                    plain[i] = ('a' - 1) + ((plain[i] + (keyword[mod] - 'a')) % 'z');
                 }
+                //Letter rotation
                 else
                 {
-                    plain[i] += (keyword[mod] - 97);
-                    j++;
+                    plain[i] += (keyword[mod] - 'a');
                 }
             }
+
+            //Uppercase rotation if letter is NOT lowercase
             else
             {
-                toupper(keyword[mod]);
+                //Adjust keyword index to match letter casing
+                keyword[mod] = toupper(keyword[mod]);
 
-                if(plain[i] + (keyword[mod] - 65) > 90)
+                //Cycles rotation in case of overflow
+                if (plain[i] + (keyword[mod] - 'A') > 'Z')
                 {
-                    plain[i] = 64 + ((plain[i] + (keyword[mod] - 65)) % 90);
-                    j++;
+                    plain[i] = ('A' - 1) + ((plain[i] + (keyword[mod] - 'A')) % 'Z');
                 }
+                //Rotate letter
                 else
                 {
-                    plain[i] += (keyword[mod] - 65);
-                    j++;
+                    plain[i] += (keyword[mod] - 'A');
                 }
             }
+
+            //Increment keyword index only after an alphabetic character is enciphered
+            j++;
         }
     }
     printf("ciphertext: %s\n", plain);

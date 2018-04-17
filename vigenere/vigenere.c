@@ -4,6 +4,10 @@
 #include <stdlib.h>
 #include <ctype.h>
 
+/*  PR COMMENT #1
+ *
+ *    Same comments as for Caesar re: combining the upper vs lower code
+ */
 int main(int argc, string argv[])
 {
     //Error messege if no command line arguments are given or more than 1 is found
